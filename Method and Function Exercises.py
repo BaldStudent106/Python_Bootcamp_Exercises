@@ -61,5 +61,47 @@ def unique(list1):
 print(list(unique(list_example)))
 
 '''
-Question 5:
+Question 5: Write a Python Function to multiple all the numbers in a list
 '''
+
+list_example2=[3,2,5,1,-4]
+
+def multiplyfunc(list_input):
+    num=list_input[0]
+    for i in list_input[1::1]:
+        num=num*i
+    return num
+
+print(multiplyfunc(list_example2))
+        
+'''
+Question 6: Write a Python function to check whether a word or phrase is palindrome or not
+'''    
+
+string_example1="MMMMMMMMMMMMM"
+
+def palindrome(string):
+    if(string == string[::-1]):
+        print(f"String {string} is a palindrome")
+    else:
+        print(f"String {string} is not a palindrome")
+
+palindrome(string_example1)
+
+'''
+Question 7: Write a Python function to check whether a string is pangram or not. (Assume the string passed in does not have any punctuation)
+'''
+
+import string
+
+string_example2="abcdefghijklmnopqrstuvwxyz   "
+def ispangram(string,alphabet=string.ascii_lowercase):
+   string.replace(" ","") 
+   set1=string
+   set2=alphabet
+   return set1,set2
+set1,set2=ispangram(string_example2)
+if(set1==set2):
+    print(f"String {string_example2} is a pangram")
+else:
+    print(f"String {string_example2} is a pangram")
