@@ -16,6 +16,7 @@ def display():
     print(f"\t{num}\t|\t{num}\t|\t{num}\t")
     print("\n")
 
+#Function to decide which player goes first
 def first():
     white=int
     black=int
@@ -31,10 +32,3 @@ def first():
         return 1
     else:
         return 2
-
-while(True):
-    game_count=1
-    if game_count==1:
-        print("Welcome to this Tic Tac Tou game!")
-    first_result=first()
-    display()
