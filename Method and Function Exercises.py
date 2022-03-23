@@ -27,24 +27,22 @@ check(11, 0, 10)
 Question 3: Write a Python function that accepts a string and calculates the number of upper case letters and lower case letters.
 '''
 
-lowercount=0
-uppercount=0
+count={"lowercount":0,"uppercount":0}
 
-
-def is_up(string,lowercount,uppercount):
+def is_up(string,count):
     for character in string:
         if (character.islower()):
-            lowercount+=1
+            count["lowercount"]+=1
         else:
-            uppercount+=1
-    return(lowercount,uppercount)
+            count["uppercount"]+=1
+    return(count)
 
 string="Hi, This is my Python Exercise"
 
-lowercount, uppercount=is_up(string,lowercount, uppercount)
+count=is_up(string,count)
 
-print(f"There is {lowercount} lowercase letters")
-print(f"There is {uppercount} uppercase letters")
+print(f'There is {count["lowercount"]} lowercase letters')
+print(f'There is {count["uppercount"]} uppercase letters')
         
 
 '''
@@ -53,12 +51,13 @@ Question 4: Write a Python function that takes a list and returns a list with un
 list_example=[2,3,4,5,1,5,51,23,5,1,1,3]
 
 def unique(list1):
-    uniquelist=set()
+    x=[]
     for i in list1:
-       uniquelist.add(i)
-    return uniquelist
+        if i not in x:
+            x.append(i)
+    return x
 
-print(list(unique(list_example)))
+print(unique(list_example))
 
 '''
 Question 5: Write a Python Function to multiple all the numbers in a list
@@ -69,7 +68,7 @@ list_example2=[3,2,5,1,-4]
 def multiplyfunc(list_input):
     num=list_input[0]
     for i in list_input[1::1]:
-        num=num*i
+        num*=i
     return num
 
 print(multiplyfunc(list_example2))
@@ -78,15 +77,12 @@ print(multiplyfunc(list_example2))
 Question 6: Write a Python function to check whether a word or phrase is palindrome or not
 '''    
 
-string_example1="MMMMMMMMMMMMM"
 
 def palindrome(string):
-    if(string == string[::-1]):
-        print(f"String {string} is a palindrome")
-    else:
-        print(f"String {string} is not a palindrome")
+    string.replace(" ","")
+    return(string == string[::-1])
 
-palindrome(string_example1)
+print(palindrome("racecar"))
 
 '''
 Question 7: Write a Python function to check whether a string is pangram or not. (Assume the string passed in does not have any punctuation)
@@ -94,14 +90,15 @@ Question 7: Write a Python function to check whether a string is pangram or not.
 
 import string
 
-string_example2="abcdefghijklmnopqrstuvwxyz   "
+string_example2="aaaaaabcdefghijklmnopqrstuvwxyz   "
 def ispangram(string,alphabet=string.ascii_lowercase):
-   string.replace(" ","") 
-   set1=string
-   set2=alphabet
-   return set1,set2
-set1,set2=ispangram(string_example2)
-if(set1==set2):
+   string.replace(" ","")
+   string=string.lower() 
+   set1=set(string)
+   set2=set(alphabet)
+   return set1==set2
+result=ispangram(string_example2)
+if(result):
     print(f"String {string_example2} is a pangram")
 else:
     print(f"String {string_example2} is a pangram")
