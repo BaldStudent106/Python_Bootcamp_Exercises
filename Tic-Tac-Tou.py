@@ -36,6 +36,30 @@ def first():
     else:
         return 2
 
+
+#Function to check whether if a player has won
+def win_check(dict,turn):
+
+    #if statement to check if someone wins
+    if(dict['Top Left']==dict['Top Middle']==dict['Top Right'] and dict['Top Left']!= " "
+    or dict['Middle Left']==dict['Middle']==dict['Middle Right'] and dict['Middle']!=" "
+    or dict['Bottom Right']==dict['Bottom Middle']==dict['Bottom Right'] and dict['Bottom Right']!=" "
+    or dict['Top Left']==dict['Middle Left']==dict['Bottom Left'] and dict['Top Left']!=" "
+    or dict['Top Middle']==dict['Middle']==dict['Bottom Middle'] and dict['Middle']!=" "
+    or dict['Top Right']==dict['Middle Right']==dict['Bottom Right'] and dict['Top Right']!=" "
+    or dict['Top Right']==dict['Middle']==dict['Bottom Left'] and dict['Middle']!=" "
+    or dict['Top Left']==dict['Middle']==dict['Bottom Right'] and dict['Middle']!=" "
+    ):
+
+        #Check which player wins
+        if(turn%2!=0):
+            print("White wins")
+            exit()
+        else:
+            print("Black wins")
+            exit()
+
+
 #Main Function to run the game
 def tic_tac_tou():
 
@@ -73,6 +97,9 @@ def tic_tac_tou():
             game_record[choice]="O"
         else:
             game_record[choice]="X"
+
+        #Call function to check if someone wins
+        win_check(game_record,turn)
 
         #Print out the table once more
         display(game_record)
