@@ -3,6 +3,9 @@ This is my simple Tic Tac Tou game created for my Udemy Bootcamp Milestone Proje
 '''
 
 #fucntion to display the tic tac tou table
+from ast import And
+
+
 def display():
     num="O"
     print("\n")
@@ -18,17 +21,19 @@ def display():
 
 #Function to decide which player goes first
 def first():
-    white=int
-    black=int
-    player=[white,black]
-    for i in range(len(player)):
-        while(True):
-            player[i]=input("White will enter a number")
-            if player[i].isdigit()==False:
-                print("The number entered is not a digit. Please try again")
-            else:
-                break
-    if player[0]>player[1]:
+    import random
+    player={"White":0, "Black":0}
+    for i in (player):
+            player[i]=(random.randrange(0,10))
+    if player["White"]>player["Black"]:
         return 1
     else:
         return 2
+
+def game_run(func):
+    if(func()==1):
+        print("White will go first")
+    else:
+        print("Black will go first")
+
+game_run(first)
