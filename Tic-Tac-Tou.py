@@ -54,17 +54,23 @@ def win_check(dict,turn):
         #Check which player wins
         if(turn%2!=0):
             print("White wins")
-            exit()
         else:
             print("Black wins")
-            exit()
-
+        return False
+    return True
 
 #Main Function to run the game
 def tic_tac_tou():
 
     #Dictionary to record the table
     game_record={"Top Left":" ","Top Middle":" ", "Top Right":" ", "Middle Left":" ", "Middle":" ", "Middle Right":" ", "Bottom Left":" ", "Bottom Middle":" ", "Bottom Right":" "}
+
+    #Input to make sure the player is ready
+    continuecheck=input("Are you ready to start the game? Enter Yes or No")
+    if continuecheck.lower()=='y':
+        game_on=True
+    else:
+        game_on=False
 
     #Decides who goes first
     if(first()==1):
@@ -84,7 +90,7 @@ def tic_tac_tou():
     #Prompt for user to press enter to continue
     input()
 
-    while(True):
+    while(game_on):
 
         #Print Out choices left for moves
         for i,j in enumerate(game_record):
@@ -99,7 +105,7 @@ def tic_tac_tou():
             game_record[choice]="X"
 
         #Call function to check if someone wins
-        win_check(game_record,turn)
+        game_on=win_check(game_record,turn)
 
         #Print out the table once more
         display(game_record)
