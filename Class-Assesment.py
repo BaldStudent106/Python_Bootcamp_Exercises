@@ -67,3 +67,58 @@ print(cylinder1.volume())
 print(cylinder1.surface_area())
 
 
+#Question 3: Create a bank account objectcoor1,coor2)
+
+#define the object Account
+class Account():
+
+    #define the init method
+    def __init__(self,owner,balance):
+        self.owner=owner
+        self.balance=balance
+
+    #define method deposit
+    def deposit(self,amount):
+
+        #Increase the balance according to amount inserted
+        self.balance+=amount
+
+    #define method withdraw
+    def withdraw(self,amount):
+
+        #If statement to decide whether the withdrawal is a success
+        if(self.balance>=amount):
+            print("Withdrawed successfully")
+
+            #Decreases the balance according to the amount
+            self.balance-=amount
+
+        else:
+            print("Withdrawal failed")
+
+
+
+    #define the __str__ method
+    def __str__(self):
+        return(f"The Owner of the account is {self.owner} and the account balance is {self.balance}")
+        
+#Create an instance of Account
+person1=Account('John',200)
+
+#Print out the owner and the balance of the account
+print(person1)
+
+#Print out the owner of the account
+print(person1.owner)
+
+#Print out the balance of the account
+print(person1.balance)
+
+#Calls the deposit method
+person1.deposit(200)
+
+#Calls the withdraw method
+person1.withdraw(400)
+
+#Prints out the modified balance
+print(person1.balance)
