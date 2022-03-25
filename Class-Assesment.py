@@ -30,9 +30,40 @@ coor2=(9,1)
 line_example=Line(coor1,coor2)
 
 #Call distance method
-print(line_example.distance)
+print(line_example.distance())
 
 #Call slope method
-print(line_example.slope(coor1,coor2))
+print(line_example.slope())
+
+#Question 2: Create a cylinder class to calculate 
+
+#define the Cylinder class
+class Cylinder():
+
+    #define pi
+    pi=3.14
+    
+    #define the init method
+    def __init__(self,height=1,radius=1):
+        self.height=height
+        self.radius=radius
+
+    #define the volume method
+    def volume(self):
+        return(Cylinder.pi*self.radius**2*self.height)
+
+    #define the surface area method
+    def surface_area(self):
+        top=Cylinder.pi*(self.radius)**2
+        return(2*top) + (2*3*self.radius*self.height)
+
+#Create a object instance
+cylinder1=Cylinder(4,1)
+
+#Call volume method
+print(cylinder1.volume())
+
+#Call surface_area method
+print(cylinder1.surface_area())
 
 
