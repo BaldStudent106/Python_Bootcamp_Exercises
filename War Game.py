@@ -38,7 +38,6 @@ class Player:
     def deal_card(self):
         self.allcards.pop(0)
 
-
 #Main
 
 #Create a deck of card
