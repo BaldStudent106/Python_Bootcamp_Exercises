@@ -67,4 +67,38 @@ while game_on:
         game_on=False
         break
 
-    john.c
+    #places on card on the table
+    john_cards_on_hand=[]
+    john_cards_on_hand.append(john.deal_card)
+
+    #places on card on the table
+    jack_cards_on_hand=[]
+    jack_cards_on_hand.append(jack_cards_on_hand)
+
+    at_war=True
+
+    while at_war:
+        if john_cards_on_hand[-1].value>jack_cards_on_hand[-1].value:
+            print('John Wins!')
+            john.addcard(john_cards_on_hand)
+            john.addcard(jack_cards_on_hand)
+
+        elif jack_cards_on_hand[0].value>john_cards_on_hand[0].value:
+            print('Jack Wins!')
+            jack.addcard(john_cards_on_hand)
+            jack.addcard(jack_cards_on_hand)
+
+        else:
+            print('War')
+            if len(jack.allcards)<5:
+                print('John Wins') 
+                game_on=False
+
+            elif len(john.allcards<5):
+                print('Jack wins')
+                game_on=False
+
+            else:
+                for num in range(5):
+                    john_cards_on_hand.append(john.deal_card) 
+                    jack_cards_on_hand.append(jack.deal_card)
