@@ -55,11 +55,16 @@ for x in range(int(len(deck)/2)):
 game_on=True
 while game_on:
 
-
+    #Checks if player 1 wins the game
     if len(john.allcards)==52:
         print('John Wins!')
         game_on=False
+        break
 
+    #Checks if player 2 wins the game
     if len(jack.allcards)==52:
         print('Jack Wins!')
         game_on=False
+        break
+
+    john.c
