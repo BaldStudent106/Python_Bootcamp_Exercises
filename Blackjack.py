@@ -8,6 +8,8 @@ Steps
 4. Show hand
 
 '''
+#import random module from python standard library
+import random
 
 #data required for a deck of poker cards
 suits=['Diamonds','Clubs','Hearts','Spades']
@@ -24,4 +26,21 @@ class Card:
         self.rank=rank
         self.value=values[rank]
 
+#Player Class
+class Player:
+
+    #define init
+    def __init__(self):
+        self.cards=[]
+
+    #method to add cards to player
+    def addcard(self,new_card):
+        self.cards.append(new_card)
+        
+
 deck=[Card(suit,rank) for suit in suits for rank in ranks]
+random.shuffle(deck)
+
+player_count=int(input('How many players are there?'))
+players=[Player() for player in range(player_count)]
+print(players[0])
