@@ -40,8 +40,24 @@ class Player:
     #check if theres a double
     def doublecheck(self):
        value_total=[card.value for card in self.cards]
-       value_tuple=tuple(value_total)
-       return any(map(lambda x:x.value==10,self.cards)) and sum(value_tuple)<=21  
+       return any(map(lambda x:x.value==10,self.cards)) and sum(value_total)<=10  
+
+    #check if there is a triple
+    def triplecheck(self):
+        value_total=[card.value for card in self.cards]
+        return sum(value_total)==0
+
+    #chech if there is an ace
+    def acecheck(self):
+        return any(map(lambda x:x.rank=='Ace',self.cards))
+
+    #define pssycheck
+    def pssycheck(self):
+        return sum(self.cards)==15
+    
+    #decide the value of ace
+    def ace_value(self):
+        pass
 
 #created a whole new deck of poker
 deck=[Card(suit,rank) for suit in suits for rank in ranks]
@@ -58,8 +74,28 @@ for player in players:
     player.addcard(deck.pop(-1))
     player.addcard(deck.pop(-1))
 
+#Game main logic
 draw_round=True
 while draw_round:
     for player in players:
+
         if len(player.cards)==2:
-            player.doublecheck
+
+            if player.doublecheck==True:
+                print('You got a double')
+                draw_round=False
+
+            if player.triplecheck==True
+                print('You got a triple')
+                draw_round=False
+
+            if player.pssycheck==True:
+                print('Bye fker')
+                draw_round=False
+
+        if draw_round==True:
+            stand_round=True
+        
+        while stand_round:
+            if player.acecheck()==True:
+
