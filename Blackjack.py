@@ -35,9 +35,6 @@ class Player:
     def __init__(self):
         self.cards=[]
         self.win_value=0
-        self.dragon=False
-        self.great_dragon=False
-        self.great_boom_value=False
 
     #method to add cards to player
     def addcard(self,new_card):
@@ -115,43 +112,46 @@ for player in players:
 
             if player.doublecheck==True:
                 print('You got a double')
-                player_round=False
-                player.win_value=2
+                player.win_value=1
+                break
 
-            if player.triplecheck==True
+            if player.triplecheck==True:
                 print('You got a triple')
-                player_round=False
-                player.win_value=3
+                player.win_value=2
+                break
 
 
             if player.pssycheck==True:
                 print('Bye fker')
-                player_round=False
-                player.win_value=-1
+                player.win_value=-3
+                break
 
 
         if len(player.cards)>5:
             if player.dragon_check==True:
                 print('You got a dragon')
-                player_round=False
-                player.dragon=True
+                player.win_value=3
+                break
 
             if player.great_dragon_check==True:
                 print('You got a great dragon')
-                player_round=False
-                player.great_dragon=True
+                player.win_value=4
+                break
 
             if player.great_boom==True:
                 print('Boom!Boom!')
                 player_round=False
-                player,great_boom_value=True
+                player.win_value=-2
+                break
 
         if player.acecheck()==True:
             player.ace_value
+
         value=player.value_calculate 
 
         if value >21:
             print('Boom')
+            player.win_value=-1
             player_round=False
 
         elif value<=21:
@@ -161,9 +161,40 @@ for player in players:
             if choice=='hit':
                 player.addcard(deck.pop(-1))
             elif choice=='stand':
-                player_count=False
+                player_round=False
 
-compare_stage=True
-while compare_stage:
-
+for player in players[:-1]:
+    if player.win_value==-3:
+       print('Bye pssy') 
+    elif player.win_value==-2:
+        print('Great loss!')
+    elif player.win_value==-1:
+        print('Boom!')
+    elif player.win_value==1 and player.win_value>players[-1].win_value:
+        print('You win double!')
+    elif player.win_value==1 and player.win_value==players[-1].win_value:
+        print('Draw')
+    elif player.win_value==1 and player.win_value<players[-1].win_value:
+        print('U lose triple')
+    elif player.win_value==2 and player.win_value>players[-1].win_value:
+        print('You win triple')
+    elif player.win_value==2 and player.win_value==players[-1].win_value:
+        print('Draw')
+    elif player.win_value==3:
+        print('You win double')
+    elif player.win_value==4:
+        print('You win triple')
+    else:
+        if player.win_value==21 and players[-1].win_value<player.win_value:
+            print('You win double')
+        if player.win_value==21 and players[-1].win_value==player.win_value:
+            print('Draw')
+        if player.value_calculate>players[-1].value_calculate:
+            print('You win')
+        if player.value_calculate==players[-1].value_calculate:
+            print('Draw')
+        if player.value_calculate<players[-1].value_calculate:
+            print('You lose')
+    
+    
 
