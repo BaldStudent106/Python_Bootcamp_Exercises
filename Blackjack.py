@@ -11,6 +11,9 @@ Steps
 #import random module from python standard library
 import random
 
+#import reduce function
+from functools import reduce
+
 #data required for a deck of poker cards
 suits=['Diamonds','Clubs','Hearts','Spades']
 ranks=['Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King','Ace']
@@ -57,7 +60,32 @@ class Player:
     
     #decide the value of ace
     def ace_value(self):
-        pass
+        for card in self.cards:
+            print(f'You currently have a {card.rank}')
+        print('What value you want ur ace to be?')
+        print('1 - 1')
+        print('2 - 11')
+        choice=int(input('Which value do you want ur ace to be'))
+        if choice==1:
+            for card in self.cards:
+                if self.rank=='Ace':
+                    self.value=1        
+        elif choice==2:
+            for card in self.cards:
+                if self.rank=='Ace':
+                    self.value=11        
+
+    def value_calculate(self):
+        total=0
+        for card in self.cards:
+            total+=card.value
+        return total
+
+    def dragon_check(self):
+        return reduce(lambda x,y:x+y, self.cards)<21
+        
+    def great_dragon_check(self):
+        return reduce(lambda x,y:x+y, self.cards)==21
 
 #created a whole new deck of poker
 deck=[Card(suit,rank) for suit in suits for rank in ranks]
@@ -78,24 +106,42 @@ for player in players:
 draw_round=True
 while draw_round:
     for player in players:
+        player_round=True
+        while player_round:
+            if len(player.cards)==2:
 
-        if len(player.cards)==2:
+                if player.doublecheck==True:
+                    print('You got a double')
+                    draw_round=False
 
-            if player.doublecheck==True:
-                print('You got a double')
-                draw_round=False
+                if player.triplecheck==True
+                    print('You got a triple')
+                    draw_round=False
 
-            if player.triplecheck==True
-                print('You got a triple')
-                draw_round=False
+                if player.pssycheck==True:
+                    print('Bye fker')
+                    draw_round=False
 
-            if player.pssycheck==True:
-                print('Bye fker')
-                draw_round=False
+            if len(player.cards)>=5:
+                if player.dragon_check==True:
+                    print('You got a great dragon')
 
-        if draw_round==True:
-            stand_round=True
-        
-        while stand_round:
+                player.great_dragon_check
+
             if player.acecheck()==True:
+                player.ace_value
+            value=player.value_calculate 
+
+            if value >21:
+                print('Boom')
+                draw_round=False
+
+            elif value<=21:
+                print(f'Your current points is {value}')
+                while not(choice=='hit' or choice=='stand'):
+                    choice=input('Woud you like to hit or stand?')
+                if choice=='hit':
+                    player.addcard(deck.pop(-1))
+                elif choice=='stand':
+                    stand_round=False
 
