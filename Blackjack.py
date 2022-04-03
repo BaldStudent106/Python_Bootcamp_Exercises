@@ -18,7 +18,6 @@ from functools import reduce
 suits=['Diamonds','Clubs','Hearts','Spades']
 ranks=['Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Jack','Queen','King','Ace']
 values={'Two':2,'Three':3,'Four':4,'Five':5,'Six':6,'Seven':7,'Eight':8,'Nine':9,'Ten':10,'Jack':10,'Queen':10,'King':10,'Ace':0}
-
 #Card Class
 class Card:
     
@@ -35,6 +34,10 @@ class Player:
     #define init
     def __init__(self):
         self.cards=[]
+        self.win_value=0
+        self.dragon=False
+        self.great_dragon=False
+        self.great_boom_value=False
 
     #method to add cards to player
     def addcard(self,new_card):
@@ -87,6 +90,8 @@ class Player:
     def great_dragon_check(self):
         return reduce(lambda x,y:x+y, self.cards)==21
 
+    def great_boom(self):
+        return reduce(lambda x,y:x+y, self.cards)>21
 #created a whole new deck of poker
 deck=[Card(suit,rank) for suit in suits for rank in ranks]
 
@@ -103,45 +108,62 @@ for player in players:
     player.addcard(deck.pop(-1))
 
 #Game main logic
-draw_round=True
-while draw_round:
-    for player in players:
-        player_round=True
-        while player_round:
-            if len(player.cards)==2:
+for player in players:
+    player_round=True
+    while player_round:
+        if len(player.cards)==2:
 
-                if player.doublecheck==True:
-                    print('You got a double')
-                    draw_round=False
+            if player.doublecheck==True:
+                print('You got a double')
+                player_round=False
+                player.win_value=2
 
-                if player.triplecheck==True
-                    print('You got a triple')
-                    draw_round=False
+            if player.triplecheck==True
+                print('You got a triple')
+                player_round=False
+                player.win_value=3
 
-                if player.pssycheck==True:
-                    print('Bye fker')
-                    draw_round=False
 
-            if len(player.cards)>=5:
-                if player.dragon_check==True:
-                    print('You got a great dragon')
+            if player.pssycheck==True:
+                print('Bye fker')
+                player_round=False
+                player.win_value=-1
 
-                player.great_dragon_check
 
-            if player.acecheck()==True:
-                player.ace_value
-            value=player.value_calculate 
+        if len(player.cards)>5:
+            if player.dragon_check==True:
+                print('You got a dragon')
+                player_round=False
+                player.dragon=True
 
-            if value >21:
-                print('Boom')
-                draw_round=False
+            if player.great_dragon_check==True:
+                print('You got a great dragon')
+                player_round=False
+                player.great_dragon=True
 
-            elif value<=21:
-                print(f'Your current points is {value}')
-                while not(choice=='hit' or choice=='stand'):
-                    choice=input('Woud you like to hit or stand?')
-                if choice=='hit':
-                    player.addcard(deck.pop(-1))
-                elif choice=='stand':
-                    stand_round=False
+            if player.great_boom==True:
+                print('Boom!Boom!')
+                player_round=False
+                player,great_boom_value=True
+
+        if player.acecheck()==True:
+            player.ace_value
+        value=player.value_calculate 
+
+        if value >21:
+            print('Boom')
+            player_round=False
+
+        elif value<=21:
+            print(f'Your current points is {value}')
+            while not(choice=='hit' or choice=='stand'):
+                choice=input('Woud you like to hit or stand:\n')
+            if choice=='hit':
+                player.addcard(deck.pop(-1))
+            elif choice=='stand':
+                player_count=False
+
+compare_stage=True
+while compare_stage:
+
 
