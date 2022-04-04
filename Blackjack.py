@@ -147,7 +147,7 @@ for player in players:
         if player.acecheck()==True:
             player.ace_value
 
-        value=player.value_calculate 
+        value=player.value_calculate()
 
         if value >21:
             print('Boom')
@@ -156,6 +156,7 @@ for player in players:
 
         elif value<=21:
             print(f'Your current points is {value}')
+            choice=' '
             while not(choice=='hit' or choice=='stand'):
                 choice=input('Woud you like to hit or stand:\n')
             if choice=='hit':
@@ -189,11 +190,11 @@ for player in players[:-1]:
             print('You win double')
         if player.win_value==21 and players[-1].win_value==player.win_value:
             print('Draw')
-        if player.value_calculate>players[-1].value_calculate:
+        if player.value_calculate()>players[-1].value_calculate():
             print('You win')
-        if player.value_calculate==players[-1].value_calculate:
+        if player.value_calculate()==players[-1].value_calculate():
             print('Draw')
-        if player.value_calculate<players[-1].value_calculate:
+        if player.value_calculate()<players[-1].value_calculate():
             print('You lose')
     
     
