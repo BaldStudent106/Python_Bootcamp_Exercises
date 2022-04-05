@@ -32,7 +32,8 @@ class Card:
 class Player:
 
     #define init
-    def __init__(self):
+    def __init__(self,player):
+        self.player=player
         self.cards=[]
         self.win_value=0
 
@@ -56,7 +57,8 @@ class Player:
 
     #define pssycheck
     def pssycheck(self):
-        return sum(self.cards)==15
+        value_list=[x.value for x in self.cards]
+        return sum(value_list)==15
     
     #decide the value of ace
     def ace_value(self):
@@ -68,12 +70,12 @@ class Player:
         choice=int(input('Which value do you want ur ace to be'))
         if choice==1:
             for card in self.cards:
-                if self.rank=='Ace':
-                    self.value=1        
+                if card.rank=='Ace':
+                    card.value=1        
         elif choice==2:
             for card in self.cards:
-                if self.rank=='Ace':
-                    self.value=11        
+                if card.rank=='Ace':
+                    card.value=11        
 
     def value_calculate(self):
         total=0
@@ -89,6 +91,10 @@ class Player:
 
     def great_boom(self):
         return reduce(lambda x,y:x+y, self.cards)>21
+
+    def __str__(self):
+        return f'The current player is {self.player}'
+
 #created a whole new deck of poker
 deck=[Card(suit,rank) for suit in suits for rank in ranks]
 
@@ -96,8 +102,9 @@ deck=[Card(suit,rank) for suit in suits for rank in ranks]
 random.shuffle(deck)
 
 #Receive the player count
-player_count=int(input('How many players are there?'))
-players=[Player() for player_count in range(player_count)]
+player_count=int(input('How many players are there?\n'))
+players=[Player(f'player {player_count}') for player_count in range(player_count)]
+players[-1].player='The Dealer'
 
 #Gives each player 2 cards
 for player in players:
@@ -108,54 +115,61 @@ for player in players:
 for player in players:
     player_round=True
     while player_round:
+
+        print(f'\n {player} \n')
+
         if len(player.cards)==2:
 
-            if player.doublecheck==True:
-                print('You got a double')
+            if player.doublecheck()==True:
+                print('You got a double\n')
                 player.win_value=1
                 break
 
-            if player.triplecheck==True:
-                print('You got a triple')
+            if player.triplecheck()==True:
+                print('You got a triple\n')
                 player.win_value=2
                 break
 
 
-            if player.pssycheck==True:
-                print('Bye fker')
-                player.win_value=-3
-                break
+            if player.pssycheck()==True:
+                pssychoice=input('You got a 15. Would you like to be a pssy?\n')
+                if pssychoice=='y':
+                    print('Bye fker\n')
+                    player.win_value=-3
+                    break
+                else:
+                    pass
 
 
         if len(player.cards)>5:
             if player.dragon_check==True:
-                print('You got a dragon')
+                print('You got a dragon \n')
                 player.win_value=3
                 break
 
-            if player.great_dragon_check==True:
-                print('You got a great dragon')
+            if player.great_dragon_check()==True:
+                print('You got a great dragon\n')
                 player.win_value=4
                 break
 
-            if player.great_boom==True:
-                print('Boom!Boom!')
+            if player.great_boom()==True:
+                print('Boom!Boom!\n')
                 player_round=False
                 player.win_value=-2
                 break
 
         if player.acecheck()==True:
-            player.ace_value
+            player.ace_value()
 
         value=player.value_calculate()
 
         if value >21:
-            print('Boom')
+            print('Boom\n')
             player.win_value=-1
             player_round=False
 
         elif value<=21:
-            print(f'Your current points is {value}')
+            print(f'Your current points is {value}\n')
             choice=' '
             while not(choice=='hit' or choice=='stand'):
                 choice=input('Woud you like to hit or stand:\n')
@@ -164,38 +178,54 @@ for player in players:
             elif choice=='stand':
                 player_round=False
 
+
 for player in players[:-1]:
+    print(f'\n{player}\n')
     if player.win_value==-3:
-       print('Bye pssy') 
+       print('Bye pssy\n') 
+
     elif player.win_value==-2:
-        print('Great loss!')
+        print('Great loss!\n')
+
     elif player.win_value==-1:
-        print('Boom!')
+        print('Boom!\n')
+
     elif player.win_value==1 and player.win_value>players[-1].win_value:
-        print('You win double!')
+        print('You win double!\n')
+
     elif player.win_value==1 and player.win_value==players[-1].win_value:
-        print('Draw')
+        print('Draw\n')
+
     elif player.win_value==1 and player.win_value<players[-1].win_value:
-        print('U lose triple')
+        print('U lose triple\n')
+
     elif player.win_value==2 and player.win_value>players[-1].win_value:
-        print('You win triple')
+        print('You win triple\n')
+
     elif player.win_value==2 and player.win_value==players[-1].win_value:
-        print('Draw')
+        print('Draw\n')
+
     elif player.win_value==3:
-        print('You win double')
+        print('You win double\n')
+
     elif player.win_value==4:
-        print('You win triple')
+        print('You win triple\n')
     else:
+
         if player.win_value==21 and players[-1].win_value<player.win_value:
-            print('You win double')
+            print('You win double\n')
+
         if player.win_value==21 and players[-1].win_value==player.win_value:
-            print('Draw')
+            print('Draw\n')
+
         if player.value_calculate()>players[-1].value_calculate():
-            print('You win')
+            print('You win\n')
+
         if player.value_calculate()==players[-1].value_calculate():
-            print('Draw')
+            print('Draw\n')
+
         if player.value_calculate()<players[-1].value_calculate():
-            print('You lose')
+            print('You lose\n')
     
     
 
