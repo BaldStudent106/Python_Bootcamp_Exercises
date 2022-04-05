@@ -28,6 +28,8 @@ class Card:
         self.rank=rank
         self.value=values[rank]
 
+    def __str__(self) :
+        return f'{self.suit} of {self.rank}'
 #Player Class
 class Player:
 
@@ -62,8 +64,6 @@ class Player:
     
     #decide the value of ace
     def ace_value(self):
-        for card in self.cards:
-            print(f'You currently have a {card.rank}')
         print('What value you want ur ace to be?')
         print('1 - 1')
         print('2 - 11')
@@ -118,6 +118,9 @@ for player in players:
 
         print(f'\n {player} \n')
 
+        for card in player.cards:
+            print(card)
+
         if len(player.cards)==2:
 
             if player.doublecheck()==True:
@@ -162,6 +165,11 @@ for player in players:
             player.ace_value()
 
         value=player.value_calculate()
+
+        if player==players[-1]:
+            if value<17:
+                print('You dont have enough points\n')
+                continue
 
         if value >21:
             print('Boom\n')
